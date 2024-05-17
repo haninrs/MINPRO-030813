@@ -20,4 +20,43 @@ model Sample {
   @@map("samples") // if you want to use snake_case format
 }
 
+model User_Costumer {
+  id             Int              @id @default(autoincrement())
+  username       String           @unique
+  email          String           @unique
+  password       String
+  confirmPw      String
+  image          String?
+  isActive       Boolean          @default(false)
+  referral       String?          @unique
+  accountType    String           @default("user")
+  Points         Points[]
+  DiscountCoupon DiscountCoupon[]
+}
 
+model User_Promotor {
+  id       Int     @id @default(autoincrement())
+  username String  @unique
+  email    String  @unique
+  password String
+  image    String?
+  isActive Boolean @default(false)
+}
+
+model Points {
+  id              Int           @id @default(autoincrement())
+  user            User_Costumer @relation(fields: [user_CostumerId], references: [id])
+  user_CostumerId Int
+  points          Int           @default(0)
+  generatedAt     DateTime      @default(now())
+  experationDate  DateTime?
+  isUsed          Boolean       @default(false)
+}
+
+model DiscountCoupon {
+  id              Int           @id @default(autoincrement())
+  user            User_Costumer @relation(fields: [user_CostumerId], references: [id])
+  user_CostumerId Int
+  discountPercent Float         @default(0.10)
+  experationDate  DateTime
+}

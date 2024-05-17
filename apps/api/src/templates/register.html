@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Confirmation</title>
+  </head>
+  <body>
+    <h1>Hallo {{name}}, welcome to HAREFEVENT</h1>
+    <!-- <p>{{link}}</p> -->
+    <p>You have successfully created an account at HAREFEVENT as Costumer</p>
+    <br />
+    <p>
+      To complete your registration, please do the verify your HAREFEVENT
+      account by clicking the link below
+    </p>
+    <br />
+    <a href="{{link}}" target="_blank">
+      <button
+        style="
+          background-color: #ffcc00;
+          color: #000000;
+          width: 100px;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        Verify
+      </button>
+    </a>
+  </body>
+</html>
