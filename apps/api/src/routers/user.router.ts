@@ -16,9 +16,11 @@ export class UserRouter {
   }
 
   private initializeRoutes(): void {
-    // this.router.get('/', this.userMiddleware.log, this.userController.getUser);
     this.router.post('/', validateRegister, this.userController.userRegister);
-    this.router.post('/login', this.userController.userLogin);
+    this.router.post(
+      '/login',
+      this.userController.userLogin,
+    );
     this.router.get(
       '/:id',
       this.userMiddleware.veryfyToken,

@@ -145,8 +145,7 @@ export class PromotorController {
       });
 
       if (user == null) throw 'User Not Found';
-      if (!user.isActive)
-        throw 'Cannot login, please activate your account';
+      if (!user.isActive) throw 'Cannot login, please activate your account';
 
       const isValidPass = await compare(password, user.password);
       if (!isValidPass) throw 'Incorrect Password';
@@ -162,9 +161,11 @@ export class PromotorController {
       const token = sign(payload, process.env.KEY_JWT as string, {
         expiresIn: '1d',
       });
+      // console.log(token);
 
       res.status(200).send({
         status: 'ok',
+        message: 'suscess login',
         promotor: user,
         token,
       });
@@ -191,7 +192,7 @@ export class PromotorController {
         },
       });
 
-      res.status(200).json(session);
+      res.json(session);
     } catch (error) {
       console.log(error);
       res.status(400).send({

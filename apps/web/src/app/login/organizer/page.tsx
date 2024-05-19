@@ -12,7 +12,7 @@ export default async function LoginPage() {
   });
 
   const session = await data.json();
-  console.log(session);
+  // console.log(session);
 
   return (
     <div className="bg-white p-7">

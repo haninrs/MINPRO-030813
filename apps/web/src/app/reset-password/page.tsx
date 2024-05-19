@@ -67,54 +67,59 @@ export default function ForgotPass() {
                     </p>
                     <div>
                       {/* pw */}
-                      <label className="input flex items-center gap-2 bg-white mt-2">
-                        <Field
+                      <div>
+                        <label className="input flex items-center gap-2 bg-white mt-2">
+                          <Field
+                            name="password"
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="New password"
+                            className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#000066] sm:text-sm sm:leading-6"
+                          />
+                          <button
+                            type="button"
+                            className="text-gray-900"
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            {showPassword ? <RiEyeCloseFill /> : <BsEyeFill />}
+                          </button>
+                        </label>
+                        <ErrorMessage
                           name="password"
-                          type={showPassword ? 'text' : 'password'}
-                          placeholder="New password"
-                          className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#000066] sm:text-sm sm:leading-6"
+                          component="div"
+                          className="text-sm ps-5 mt-1 text-red-700"
                         />
-                        <button
-                          type="button"
-                          className="text-gray-900"
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          {showPassword ? <RiEyeCloseFill /> : <BsEyeFill />}
-                        </button>
-                      </label>
-                      <ErrorMessage
-                        name="password"
-                        component="div"
-                        className="text-sm ps-5 mt-1 text-red-700"
-                      />
+                      </div>
 
                       {/* confirm pw */}
-                      <label className="input flex items-center gap-2 bg-white mt-2">
-                        <Field
+
+                      <div>
+                        <label className="input flex items-center gap-2 bg-white mt-2">
+                          <Field
+                            name="confirmPassword"
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            placeholder="Confirm new password"
+                            className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#000066] sm:text-sm sm:leading-6"
+                          />
+                          <button
+                            type="button"
+                            className="text-gray-900"
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
+                          >
+                            {showConfirmPassword ? (
+                              <RiEyeCloseFill />
+                            ) : (
+                              <BsEyeFill />
+                            )}
+                          </button>
+                        </label>
+                        <ErrorMessage
                           name="confirmPassword"
-                          type={showConfirmPassword ? 'text' : 'password'}
-                          placeholder="Confirm new password"
-                          className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#000066] sm:text-sm sm:leading-6"
+                          component="div"
+                          className="text-sm ps-5 mt-1 text-red-700"
                         />
-                        <button
-                          type="button"
-                          className="text-gray-900"
-                          onClick={() =>
-                            setShowConfirmPassword(!showConfirmPassword)
-                          }
-                        >
-                          {showConfirmPassword ? (
-                            <RiEyeCloseFill />
-                          ) : (
-                            <BsEyeFill />
-                          )}
-                        </button>
-                      </label>
-                      <ErrorMessage
-                        name="confirmPassword"
-                        component="div"
-                        className="text-sm ps-5 mt-1 text-red-700"
-                      />
+                      </div>
                     </div>
 
                     {/* button reset */}

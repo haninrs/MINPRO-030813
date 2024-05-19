@@ -5,10 +5,7 @@ import * as yup from 'yup';
 import { EditProfileOrginazer } from '@/components/EditProfile/editProfileOrginazer';
 
 const ResetPwSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Please Enter a valid email address')
-    .required('Email is required'),
+  username: yup.string().required('New username is required'),
 });
 
 export default function ChangeEmail() {
@@ -29,11 +26,11 @@ export default function ChangeEmail() {
           return (
             <Form>
               <EditProfileOrginazer
-                title="Change Email"
-                description="Enter your new email address"
-                nameField="email"
-                placeholderField="New Email"
-                buttonText="Save"
+                title="Change Username"
+                description="Enter your new username"
+                nameField="username"
+                placeholderField="New Username"
+                buttonText="Change Username"
               />
             </Form>
           );

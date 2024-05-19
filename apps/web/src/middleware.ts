@@ -30,13 +30,13 @@ const protectOrginazerPages = [
 ];
 
 export async function middleware(request: NextRequest) {
-  const token = cookies().get('session');
+  const token = cookies().get('session')?.value;
   // console.log(token);
 
   const url = request.nextUrl.pathname;
   if (protectedPages.includes(url)) {
-    if (token === undefined) {
-      // console.log(token);
+    if (token == undefined) {
+      console.log(token);
 
       return NextResponse.redirect(
         new URL(`/login?redirect=${url}`, request.url),
@@ -55,7 +55,7 @@ export async function middleware(request: NextRequest) {
         },
       );
       const data = await res.json();
-      // console.log(data.accountType);
+      console.log(data.accountType);
 
       if (protectUserPages.includes(url) && data.accountType == 'user') {
         return NextResponse.next();

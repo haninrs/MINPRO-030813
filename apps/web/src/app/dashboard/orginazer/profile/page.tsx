@@ -17,18 +17,20 @@ export default async function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white grid place-content-center">
+    <div className="min-h-screen bg-white ">
       <DashboardLanding />
-      <section className="bg-white py-16 ">
-        <div className="py-8 px-4 mx-auto max-w-screen-xl mt-7 lg:py-16">
+      <section className="bg-white grid place-content-center ">
+        <div className="py-8 px-4 mx-auto max-w-screen-xl mt-10 lg:py-16">
           <Link
             href={'/dashboard/orginazer'}
-            className="text-black ps-2 flex gap-1 items-center"
+            className="text-black mt-16 flex gap-1 items-center"
           >
             <IoIosArrowBack className="size-7 lg:size-16" />
-            <span className="text-gray-600 lg:text-xl">Back to dashboard</span>
+            <span className="text-gray-600 font-semibold text-lg lg:text-xl">
+              Back to dashboard
+            </span>
           </Link>
-          <div className="bg-gray-50 mt-7 border border-gray-200 rounded-lg p-2 md:p-12 mb-8 shadow-xl">
+          <div className="bg-gray-50 mt-7 border border-gray-200 rounded-lg p-4 md:p-12 mb-8 shadow-xl">
             <div className="">
               <table className="w-full table-auto">
                 {/* head */}
@@ -43,7 +45,7 @@ export default async function ProfilePage() {
                   </tr>
                 </thead>
                 <tbody className="">
-                  {/* row 1 */}
+                  {/* photo */}
                   <tr>
                     <th className="pb-10">
                       <Image
@@ -57,21 +59,27 @@ export default async function ProfilePage() {
                         className="object-cover"
                       />
                     </th>
-                    <th className="py-3 px-4 text-left md:text-xl">
-                      <Link href={'/'}>Edit photo profile</Link>
+                    <th colSpan={2} className="py-3 px-4 text-left md:text-xl">
+                      <Link
+                        href={'/dashboard/orginazer/profile/edit/photoProfile'}
+                      >
+                        Edit photo profile
+                      </Link>
                     </th>
                   </tr>
-
+                  {/* username */}
                   <tr>
                     <th className="pb-3 text-left md:text-xl">Username</th>
                     <td className="py-3 px-4 text-left md:text-xl">
                       {session?.username}
                     </td>
                     <td className="py-3 px-4 text-center md:text-xl">
-                      <MdNavigateNext className="size-7 lg:size-10" />
+                      <Link href={'/dashboard/orginazer/profile/edit/username'}>
+                        <MdNavigateNext className="size-7 lg:size-10" />
+                      </Link>
                     </td>
                   </tr>
-                  {/* row 2 */}
+                  {/* email */}
                   <tr>
                     <th className="py-3 text-left md:text-xl">Email</th>
                     <td className="py-3 px-4 text-left md:text-xl">
@@ -83,27 +91,39 @@ export default async function ProfilePage() {
                       </span>
                     </td>
                     <td className="py-3 px-4 text-center">
-                      <MdNavigateNext className="size-7 lg:size-10" />
+                      <Link href={`/dashboard/orginazer/profile/edit/email`}>
+                        <MdNavigateNext className="size-7 lg:size-10" />
+                      </Link>
                     </td>
                   </tr>
-                  {/* row 3 */}
+                  {/* password */}
                   <tr>
-                    <th className="py-3 text-left lg:text-xl">Revenue</th>
-                    <td className="py-3 px-4 text-left lg:text-xl">
-                      {session.referral}
-                    </td>
+                    <th className="py-3 text-left lg:text-xl">Password</th>
+                    <td className="py-3 px-4 text-left lg:text-xl">*******</td>
                     <td className="py-3 px-4 text-center">
-                      <MdNavigateNext className="size-7 lg:size-10" />
+                      <Link href={`/dashboard/orginazer/profile/edit/password`}>
+                        <MdNavigateNext className="size-7 lg:size-10" />
+                      </Link>
                     </td>
                   </tr>
                   <tr>
-                    <th className="py-3 text-left lg:text-xl">Total Events</th>
+                    <th className="py-3 text-left lg:text-xl">Total Event</th>
                     <td className="py-3 px-4 text-left lg:text-lg">
+                      {session.Point ? session.Point : 0}
+                      <span>{session.Point}</span>
+                    </td>
+                    {/* <td className="py-3 px-4 text-center">
+                      <MdNavigateNext className="size-7 lg:size-10" />
+                    </td> */}
+                  </tr>
+                  <tr>
+                    <th className="py-3 text-left lg:text-xl">Account Type</th>
+                    <td className="py-3 px-4 text-left lg:text-xl">
                       {session.accountType}
                     </td>
-                    <td className="py-3 px-4 text-center">
+                    {/* <td className="py-3 px-4 text-center">
                       <MdNavigateNext className="size-7 lg:size-10" />
-                    </td>
+                    </td> */}
                   </tr>
                 </tbody>
               </table>
