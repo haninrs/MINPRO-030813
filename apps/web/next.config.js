@@ -5,7 +5,7 @@ const nextConfig = {};
 
 module.exports = {
   images: {
-    domains: ['daisyui.com', 'images.unsplash.com'],
+    domains: ['daisyui.com', 'images.unsplash.com', 'via.placeholder.com'],
     // remotePatterns: [
     //   {
     //     protocol: 'http',

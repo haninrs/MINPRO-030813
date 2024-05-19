@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { BsEyeFill } from 'react-icons/bs';
 import { IoIosGift } from 'react-icons/io';
 import { RiEyeCloseFill } from 'react-icons/ri';
+import { redirect } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 const RegisterSchema = yup.object().shape({
   username: yup
@@ -46,9 +48,17 @@ export default function FormRegister() {
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        alert('Submit Form Register Susccessfully');
-      } else {
-        alert(res.statusText);
+        alert('Submit form success please check your email for verification');
+      }
+      if (res.status == 400) {
+        if (data.error == 'Email already exists') {
+          alert('Email already exists , Please use another email or log in');
+        }
+        if (data.error == 'Username already exists') {
+          alert(
+            'Username already exists , Please use another username or log in',
+          );
+        }
       }
     } catch (error: any) {
       // alert(error.message);
@@ -217,6 +227,11 @@ export default function FormRegister() {
                       className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </label>
+                  <ErrorMessage
+                    name="referral"
+                    component="div"
+                    className="text-sm px-10 pt-1 text-red-700"
+                  />
                   <div className="flex justify-center">
                     <button
                       type="submit"

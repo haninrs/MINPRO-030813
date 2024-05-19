@@ -22,6 +22,22 @@ export class UserController {
     }
   }
 
+  async getProfile(req: Request, res: Response) {
+    try {
+      const profile = await prisma.user_Costumer.findUnique({
+        where: {
+          id: req.user?.id,
+        },
+      });
+      res.status(200).send({
+        status: 'ok',
+        profile,
+      });
+    } catch (error) {
+      res.status(400).send('eror');
+    }
+  }
+
   // register blum
   async userRegister(req: Request, res: Response) {
     try {
@@ -35,7 +51,14 @@ export class UserController {
           email,
         },
       });
+
+      let userName = await prisma.user_Costumer.findUnique({
+        where: {
+          username,
+        },
+      });
       if (user?.isActive == true) throw 'Email already exist';
+      if (userName?.isActive == true) throw 'Username already exist';
 
       let referralAda;
       // handle pakai refferal
@@ -109,7 +132,6 @@ export class UserController {
         token,
       });
     } catch (error) {
-      console.log(error);
       res.status(400).send({
         status: 'error',
         message: error,
@@ -122,7 +144,6 @@ export class UserController {
     try {
       // console.log(req.user?.referral);
       // refferal own get point
-
       if (req.user?.accountType == 'user') {
         if (req.user?.referral) {
           const refOwn = await prisma.user_Costumer.findUnique({
@@ -130,7 +151,6 @@ export class UserController {
               referral: req.user.referral,
             },
           });
-          console.log(refOwn?.username);
 
           if (!refOwn) throw 'Invalid referral code';
           await prisma.points.create({
@@ -151,24 +171,36 @@ export class UserController {
             },
           });
         }
+
+        const refferalUser =
+          req.user?.username[0]! +
+          req.user?.username[1]! +
+          (Math.floor(Math.random() * (999 - 100 + 1)) + 100) +
+          req.user?.id!;
+
+        const activateUser = await prisma.user_Costumer.update({
+          data: {
+            isActive: true,
+            referral: refferalUser,
+          },
+          where: {
+            id: req.user?.id,
+          },
+        });
+        res.json(activateUser);
       }
 
-      const refferalUser =
-        req.user?.username[0]! +
-        req.user?.username[1]! +
-        (Math.floor(Math.random() * (999 - 100 + 1)) + 100) +
-        req.user?.id!;
-
-      const activateUser = await prisma.user_Costumer.update({
-        data: {
-          isActive: true,
-          referral: refferalUser,
-        },
-        where: {
-          id: req.user?.id,
-        },
-      });
-      res.json(activateUser);
+      if (req.user?.accountType == 'orginazer') {
+        const activatePromotor = await prisma.user_Promotor.update({
+          data: {
+            isActive: true,
+          },
+          where: {
+            id: req.user?.id,
+          },
+        });
+        res.json(activatePromotor);
+      }
     } catch (err) {
       console.log(err);
       res.status(400).send({
@@ -190,34 +222,18 @@ export class UserController {
       });
 
       if (user == null) throw 'User Not Found';
+      if (!user.isActive) throw 'User Not Active';
 
       const isValidPass = await compare(password, user.password);
       if (!isValidPass) throw 'Incorrect Password';
-
-      const point = await prisma.points.findMany({
-        where: {
-          user_CostumerId: user.id,
-        },
-      });
-
-      const discountCoupon = await prisma.discountCoupon.findMany({
-        where: {
-          user_CostumerId: user.id,
-        },
-      });
-
-      console.log(user.id);
 
       const payload = {
         id: user.id,
         username: user.username,
         email: user.email,
         isActive: user.isActive,
-        referral: user.referral,
         accountType: user.accountType,
         image: user.image,
-        point: point,
-        discount: discountCoupon,
       };
       const token = sign(payload, process.env.KEY_JWT as string, {
         expiresIn: '1d',
@@ -225,7 +241,14 @@ export class UserController {
 
       res.status(200).send({
         status: 'ok',
-        user,
+        userData: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          image: user.image,
+          accountType: user.accountType,
+          isActive: user.isActive,
+        },
         token,
       });
     } catch (err) {
@@ -237,31 +260,6 @@ export class UserController {
     }
   }
 
-  // update profile
-  // async profileUser(req: Request, res: Response) {
-  //   try {
-  //     const { file } = req;
-  //     if (!file) throw 'File Not Found';
-
-  //     const imgUrl = `http://localhost:8000/public/images/${file.fieldname}`;
-
-  //     await prisma.user_Costumer.update({
-  //       where: {
-  //         id: req.user?.id,
-  //       },
-  //       data: {
-  //         image: imgUrl,
-  //       },
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //     res.status(400).send({
-  //       status: 'error',
-  //       message: error,
-  //     });
-  //   }
-  // }
-
   // session
   async getSession(req: Request, res: Response) {
     try {
@@ -272,32 +270,19 @@ export class UserController {
         select: {
           username: true,
           email: true,
+          image: true,
+          accountType: true,
+          isActive: true,
+          DiscountCoupon: true,
+          Points: true,
         },
       });
-      res.json(session);
+      res.status(200).json(session);
     } catch (error) {
       console.log(error);
       res.status(400).send({
         status: 'error',
         message: error,
-      });
-    }
-  }
-
-  // keep login
-  async keepLogin(req: Request, res: Response) {
-    try {
-      const user = await prisma.user_Costumer.findFirst({
-        where: { id: req.user?.id },
-      });
-      res.status(200).send({
-        status: 'ok',
-        user,
-      });
-    } catch (err) {
-      res.status(400).send({
-        status: 'error',
-        message: err,
       });
     }
   }

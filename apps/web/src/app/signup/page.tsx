@@ -4,29 +4,39 @@ import React from 'react';
 export default function Page() {
   return (
     <div>
-      <div className="bg-white min-h-screen flex justify-center items-center p-10 sm:p-5 md:p-6">
-        <div className="rounded-lg border-t-4 flex flex-col items-center border-[#000066] bg-white p-3  shadow-lg">
-          <h1 className="text-2xl sm:text-5xl text-[#000066] text-center font-bold m-5 ">
-            Signup
-          </h1>
-          <p className="text-xl sm:text-3xl text-balance text-center font-semibold text-gray-500 sm:mx-9 sm:my-7 mx-5 my-3">
-            What would you like to be?
-          </p>
-          <Link
-            href={'/signup/costumer'}
-            className="text-[#000066] sm:text-2xl  font-semibold mb-0.5 mt-2 sm:mb-4 sm:mt-6 hover:pointer-events-auto"
-          >
-            Buy a ticket event
-          </Link>
+      <div className="bg-white p-3">
+        <div className="min-h-screen  bg-white grid place-content-center">
+          <section className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
+            <div className="mb-4">
+              <Link href={'/'}>Back to home</Link>
+            </div>
+            <div className="bg-gray-50 border-t-4 border-[#000066] rounded-lg p-8 md:p-12 mb-8 shadow-xl">
+              <div className="flex flex-col justify-center items-center gap-2 p-8">
+                <h1 className="text-2xl text-center text-gray-600 font-bold mb-12 mt-3">
+                  Sign Up As
+                </h1>
+                <Link
+                  href={'/signup/costumer'}
+                  className="bg-[#FFCC00] text-white text-lg font-bold text-center py-2 px-4 h-30 rounded-md hover:bg-[#c49e04]  hover:text-white
+                transition-ease hover:scale-105 duration-300
+                "
+                >
+                  Costumer
+                </Link>
 
-          <p>Or</p>
+                <p className="text-center font-semibold text-gray-600">Or</p>
 
-          <Link
-            href={'/signup/organizer'}
-            className="text-[#000066] sm:text-2xl font-semibold mt-0.5 mb-2 sm:mt-4 sm:mb-6 hover:pointer-events-auto"
-          >
-            Create a ticket event
-          </Link>
+                <Link
+                  href={'/signup/organizer'}
+                  className="bg-[#FFCC00] text-white text-lg font-bold text-center py-2 px-4 h-30 rounded-md hover:bg-[#c49e04]  hover:text-white
+                transition-ease hover:scale-105 duration-300
+                "
+                >
+                  Organizer
+                </Link>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>

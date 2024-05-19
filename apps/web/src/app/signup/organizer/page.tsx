@@ -6,6 +6,10 @@ import Link from 'next/link';
 import { BsEyeFill } from 'react-icons/bs';
 import { IoIosGift } from 'react-icons/io';
 import { RiEyeCloseFill } from 'react-icons/ri';
+import { redirect } from 'next/dist/server/api-utils';
+import { useRouter } from 'next/router';
+import { error } from 'console';
+import AlertComponent from '@/components/AlertComp';
 
 const RegisterSchema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -25,24 +29,34 @@ const RegisterSchema = yup.object().shape({
 
 export default function FormRegister() {
   const [loading, setLoading] = useState('hidden');
+  // const router = useRouter();
+
   const onRegister = async (data: any) => {
     try {
       setLoading('absolute');
 
-      const res = await fetch('http://localhost:8000/api/users', {
+      const res = await fetch('http://localhost:8000/api/promotors', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
-      if (res.ok) {
-        alert('Submit Form Register Susccessfully');
-      } else {
-        alert(res.statusText);
+      if (res.status == 201) {
+        alert('Submit form success please check your email for verification');
+      }
+
+      if (res.status == 400) {
+        if (data.error == 'Email already exists') {
+          alert('Email already exists , Please use another email or log in');
+        }
+        if (data.error == 'Username already exists') {
+          alert(
+            'Username already exists , Please use another username or log in',
+          );
+        }
       }
     } catch (error: any) {
-      // alert(error.message);
       console.log(error);
       setLoading('hidden');
     }
@@ -52,7 +66,7 @@ export default function FormRegister() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <div className="p-7">
+    <div className="p-7 bg-white min-h-screen">
       <Formik
         initialValues={{
           username: '',

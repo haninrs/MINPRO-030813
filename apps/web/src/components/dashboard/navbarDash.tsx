@@ -26,7 +26,10 @@ export async function DashboardLanding() {
                   width={100}
                   height={100}
                   alt="Tailwind CSS Navbar component"
-                  src= {`https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D `}
+                  src={
+                    `https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D` ||
+                    `${session.image}`
+                  }
                 />
               </div>
             </div>

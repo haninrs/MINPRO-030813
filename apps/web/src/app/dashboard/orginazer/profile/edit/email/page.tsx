@@ -11,7 +11,7 @@ const ResetPwSchema = yup.object().shape({
     .required('Email is required'),
 });
 
-export default function ForgotPass() {
+export default function ChangeEmail() {
   return (
     <div className=" p-7 bg-white">
       <Formik
@@ -32,8 +32,8 @@ export default function ForgotPass() {
                 <section className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
                   <div className="bg-gray-50 border-t-4 border-[#000066] rounded-lg p-8 md:p-12 mb-8 shadow-xl">
                     <div className="flex flex-col justify-center items-center gap-2">
-                      <h1 className="mt-5 mb-10 text-pretty text-black text-center text-xl font-bold">
-                        Forgot your password?
+                      <h1 className="mt-5 mb-10 text-pretty text-[#000066] text-center text-xl font-bold">
+                        Change Email
                       </h1>
                       <p className="text-pretty text-center text-gray-600">
                         We will email you a reset password link

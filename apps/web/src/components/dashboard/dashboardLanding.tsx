@@ -12,7 +12,7 @@ export function DashboardLanding() {
       <ul className="menu menu-horizontal w-full items-center justify-center  bg-[#000066] rounded-box">
         <li className=" m-1">
           <Link
-            href={'/dashboard/user'}
+            href={'/'}
             className="tooltip hover:bg-opacity-50 tooltip-top"
             data-tip="Home"
           >

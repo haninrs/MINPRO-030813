@@ -4,7 +4,7 @@ import UserActionButton from './navbar/UserActionButton';
 
 export const HeaderPage = () => {
   return (
-    <header className="bg-white">
+    <header className="bg-white w-screen z-20 fixed top-0">
       <div className=" flex flex-col md:flex-row justify-between md:items-center p-4 gap-2">
         <Link
           href="/"

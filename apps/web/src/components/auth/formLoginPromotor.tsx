@@ -1,14 +1,11 @@
 'use client';
-import { useAppDispatch } from '@/lib/feature/hooks';
-import { setUser } from '@/lib/feature/user/userSlice';
-import { loginUserc } from '@/lib/userCostumer';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
 import * as yup from 'yup';
 import { BsEyeFill } from 'react-icons/bs';
 import { TbEyeClosed } from 'react-icons/tb';
+import { loginUserP } from '@/lib/userPromotor';
 
 const LoginSchema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -18,31 +15,16 @@ const LoginSchema = yup.object().shape({
     .required('Password is required'),
 });
 
-export const FormLogin = () => {
+export const FormLoginPromotor = () => {
   const handleLogin = async (values: any, action: any) => {
     try {
-      await loginUserc(values);
+      await loginUserP(values);
     } catch (error) {
       console.log(error);
       alert(error);
     }
     action.resetForm();
   };
-
-  // const search = useSearchParams();
-  // const dispatch = useAppDispatch();
-  // const redirect = search.get('redirect') || '/';
-
-  // const onLogin = async (data: any) => {
-  //   try {
-  //     const res = await loginUserc(data);
-  //     dispatch(setUser(res.user));
-  //     createToken(res.token, redirect);
-  //   } catch (error) {
-  //     console.log(error);
-  //     alert(<AlertComponent message={'Error'}></AlertComponent>);
-  //   }
-  // };
 
   const [show, setShow] = useState(false);
 
@@ -151,4 +133,4 @@ export const FormLogin = () => {
   );
 };
 
-export default FormLogin;
+export default FormLoginPromotor;

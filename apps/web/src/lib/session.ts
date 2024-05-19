@@ -1,3 +1,4 @@
+'use server';
 import { verify } from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 
@@ -15,6 +16,10 @@ export async function getSession() {
 
 export async function decrypt(input: string): Promise<any> {
   const payload = verify(input, process.env.KEY_JWT!);
-  console.log(payload);
+  // console.log(payload);
   return payload;
+}
+
+export async function onLogout() {
+  cookies().delete('session');
 }

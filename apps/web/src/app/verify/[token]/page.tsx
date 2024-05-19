@@ -10,7 +10,7 @@ export default function VerifyPage() {
   const handleVerify = async () => {
     try {
       const res = await fetch('http://localhost:8000/api/users/verify', {
-        method: 'GET',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${params.token}`,
@@ -26,14 +26,26 @@ export default function VerifyPage() {
 
   return (
     <div>
-      <div className="flex w-full justify-center">
-        <Link
-          href={'/login'}
-          onClick={handleVerify}
-          className="bg-[#FFCC00] text-[#000066] w-3/5 h-30 rounded-md font-bold"
-        >
-          Verify
-        </Link>
+      <div className="min-h-screen  bg-white grid place-content-center">
+        <section className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
+          <div className="bg-gray-50 border-t-4 border-[#000066] rounded-lg p-8 md:p-12 mb-8 shadow-xl">
+            <div className="flex flex-col justify-center items-center gap-2">
+              <h1 className="text-3xl text-center text-gray-600 font-semibold mb-3">
+                Click here to verify your account
+              </h1>
+              <Link
+                as={'button'}
+                href={'/login'}
+                onClick={handleVerify}
+                className="bg-[#FFCC00] text-white text-lg font-bold text-center py-2 px-4 h-30 rounded-md hover:bg-[#c49e04]  hover:text-white
+                transition-ease hover:scale-105 duration-300
+                "
+              >
+                Verify
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

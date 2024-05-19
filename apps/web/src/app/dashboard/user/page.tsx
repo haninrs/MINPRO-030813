@@ -1,31 +1,37 @@
+import { HeaderPage } from '@/components/Header';
 import { DashboardLanding } from '@/components/dashboard/dashboardLanding';
+import { getSession } from '@/lib/session';
+import Link from 'next/link';
 import React from 'react';
 import { MdVerified } from 'react-icons/md';
 import { SiBitcoinsv } from 'react-icons/si';
 
-export const DashbordPage = () => {
+export const DashbordPage = async () => {
+  const session = await getSession();
+
   return (
-    <div className="h-screen bg-white">
-      <section className="bg-white ">
+    <div className="min-h-screen bg-white">
+      {/* <DashboardLanding /> */}
+      <section className="bg-white pb-20 ">
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
           <div className="bg-gray-50  border border-gray-200 rounded-lg p-8 md:p-12 mb-8 shadow-xl">
             <div className="flex  gap-2">
-              <h1 className="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">
-                Nama Akun
+              <h1 className="text-gray-900  text-3xl md:text-5xl font-extrabold mb-2">
+                {session?.username}
               </h1>
               <MdVerified
                 className="size-7 self-center fill-blue-600"
                 fill=""
               />
             </div>
-            <a
-              href="#"
+            <Link
+              href="/profile"
               className=" text-blue-600 text-sm font-medium inline-flex items-center px-2.5 py-0.5  mb-2"
             >
               Edit account details
-            </a>
+            </Link>
 
-            <div className="max-w-sm animate-pulse rounded-lg flex items-center justify-between bg-gray-400 min-w-full p-3 h-min">
+            <div className="max-w-sm animate-pulse rounded-lg flex items-center justify-between bg-gray-400 min-w-full z-0 p-3 h-min">
               <p className="text-white p-3 ">Your Points</p>
               <div className="flex gap-1 items-center">
                 <SiBitcoinsv className="size-7 fill-white" />
