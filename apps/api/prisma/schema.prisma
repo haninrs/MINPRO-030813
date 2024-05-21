@@ -26,12 +26,13 @@ model User_Costumer {
   email          String           @unique
   password       String
   confirmPw      String
-  image          String?
+  image          String?          @db.LongText
   isActive       Boolean          @default(false)
   referral       String?          @unique
   accountType    String           @default("user")
   Points         Points[]
   DiscountCoupon DiscountCoupon[]
+  Order          Order[]
 }
 
 model User_Promotor {
@@ -40,9 +41,10 @@ model User_Promotor {
   email       String  @unique
   password    String
   confirmPw   String
-  image       String?
+  image       String? @db.LongText
   isActive    Boolean @default(false)
   accountType String  @default("orginazer")
+  Event       Event[]
 }
 
 model Points {
@@ -61,4 +63,31 @@ model DiscountCoupon {
   user_CostumerId Int
   discountPercent Float         @default(0.10)
   experationDate  DateTime
+}
+
+model Event {
+  id             Int           @id @default(autoincrement())
+  title          String
+  description    String
+  location       String
+  imageUrl       String        @db.LongText
+  startDateTime  DateTime
+  endDateTime    DateTime
+  price          Int
+  isFree         Boolean       @default(false)
+  ticket         Int?
+  userPromotorId Int
+  userPromotor   User_Promotor @relation(fields: [userPromotorId], references: [id])
+  Order          Order[]
+}
+
+model Order {
+  id             Int           @id @default(autoincrement())
+  userCostumerId Int
+  eventId        Int
+  totalAmount    Int
+  quantity       Int?          @default(0)
+  createdAt      DateTime      @default(now())
+  event          Event         @relation(fields: [eventId], references: [id])
+  userCostumer   User_Costumer @relation(fields: [userCostumerId], references: [id])
 }

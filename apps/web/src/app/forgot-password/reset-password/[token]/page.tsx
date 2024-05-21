@@ -5,8 +5,8 @@ import * as yup from 'yup';
 import { BsEyeFill } from 'react-icons/bs';
 import { RiEyeCloseFill } from 'react-icons/ri'; // Changed TbEyeClosed to RiEyeCloseFill for the eye closed icon
 import AlertComponent from '@/components/AlertComp';
-import { redirect } from 'next/navigation';
-// import { useRouter } from 'next/router';
+import { redirect, useSearchParams } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 const ResetPwSchema = yup.object().shape({
   password: yup
@@ -20,6 +20,24 @@ const ResetPwSchema = yup.object().shape({
 });
 
 export default function ForgotPass() {
+  const params = useSearchParams();
+
+  const handleResetPW = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/api/promotors/update-password', {
+        method: "PATCH",  
+        headers: {
+          Cookie: cookies().toString(),
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify(value
+      })
+    } catch (error) {
+      console.log(error);
+      alert(error)
+      
+    }
+  }
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -122,6 +140,9 @@ export default function ForgotPass() {
                       </div>
                     </div>
 
+                    <p className="text-pretty text-center mb-5 text-gray-600">
+                      if you click button bellow it will reset your password
+                    </p>
                     {/* button reset */}
                     <div className="flex justify-center">
                       {showAlert && (

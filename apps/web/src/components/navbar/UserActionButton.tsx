@@ -14,7 +14,7 @@ import ButtonLogout from './buttonLogout';
 
 export const UserActionButton = async () => {
   const session = await getSession();
-  console.log(session?.accountType);
+  // console.log(session?.accountType);
 
   return session ? (
     <div>

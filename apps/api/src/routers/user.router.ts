@@ -36,6 +36,7 @@ export class UserRouter {
       this.userMiddleware.veryfyToken,
       this.userController.getSession,
     );
+    
   }
 
   //   function buat ambil

@@ -124,12 +124,14 @@ export class UserController {
         subject: 'Welcome to HAREFEVENT',
         html,
       });
+      console.log(token);
 
       res.status(201).send({
         status: 'ok',
         message: 'User Registered!',
         user,
         token,
+        
       });
     } catch (error) {
       res.status(400).send({
@@ -182,6 +184,7 @@ export class UserController {
           data: {
             isActive: true,
             referral: refferalUser,
+            
           },
           where: {
             id: req.user?.id,
@@ -226,6 +229,21 @@ export class UserController {
 
       const isValidPass = await compare(password, user.password);
       if (!isValidPass) throw 'Incorrect Password';
+      const referal = await prisma.user_Costumer.findFirst({
+        where: {
+          referral: user.referral,
+        },
+      });
+
+      const point = await prisma.points.aggregate({
+        _sum: {
+          points: true,
+        },
+        where: {
+          user_CostumerId: user.id,
+        },
+      });
+      console.log(point._sum.points);
 
       const payload = {
         id: user.id,
@@ -234,6 +252,8 @@ export class UserController {
         isActive: user.isActive,
         accountType: user.accountType,
         image: user.image,
+        referal: user.referral,
+        point: point,
       };
       const token = sign(payload, process.env.KEY_JWT as string, {
         expiresIn: '1d',
@@ -248,6 +268,7 @@ export class UserController {
           image: user.image,
           accountType: user.accountType,
           isActive: user.isActive,
+          referral: user.referral,
         },
         token,
       });

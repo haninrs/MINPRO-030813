@@ -9,6 +9,10 @@ import Image from 'next/image';
 export default async function ProfilePage() {
   const session = await getSession();
 
+  console.log(session);
+
+  // console.log(Date.now());
+
   function truncateEmail(email: string) {
     const [username, domain] = email.split('@');
     const truncatedDomain =

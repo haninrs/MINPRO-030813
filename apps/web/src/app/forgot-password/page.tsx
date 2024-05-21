@@ -20,7 +20,7 @@ export default function ForgotPass() {
         }}
         validationSchema={ResetPwSchema}
         onSubmit={(values, action) => {
-          console.log(values);
+          // console.log(values);
           //  onReset(values)
           action.resetForm();
         }}

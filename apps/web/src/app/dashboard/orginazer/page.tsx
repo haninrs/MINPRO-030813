@@ -21,9 +21,7 @@ export const DashbordPage = async () => {
               <h1 className="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">
                 {session?.username}
               </h1>
-              <MdVerified
-                className="size-7 self-center fill-blue-600"
-              />
+              <MdVerified className="size-7 self-center fill-blue-600" />
             </div>
             <Link
               href="/dashboard/orginazer/profile"
@@ -47,18 +45,11 @@ export const DashbordPage = async () => {
           </div>
           <div className="grid md:grid-cols-2 gap-8 ">
             <div className="bg-gray-50 shadow-xl dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
-              <Link
-                href="/dashboard/orginazer/event"
-                className="bg-white inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-purple-400 mb-2"
-              >
-                <FaClipboardList className="size-7 fill-[#FFCC00]" />
-              </Link>
               <h2 className="text-[#000066] dark:text-white text-3xl font-extrabold mb-2">
-                Your Event List
+                Total Event
               </h2>
               <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quaerat, fugit?
+                {session.totalEvent}
               </p>
               <Link
                 href="/dashboard/orginazer/event"
@@ -83,14 +74,9 @@ export const DashbordPage = async () => {
               </Link>
             </div>
             <div className="bg-gray-50 shadow-xl border border-gray-200 rounded-lg p-8 md:p-12">
-              <Link
-                href="/dashboard/orginazer/event"
-                className="bg-white  inline-flex items-center px-2.5 py-0.5 rounded-md mb-2"
-              >
-                <IoIosCreate className="size-9 fill-[#FFCC00]" />
-              </Link>
+              
               <h2 className="text-[#000066] dark:text-white text-3xl font-extrabold mb-2">
-                Create Your Event
+                Total Atendee
               </h2>
               <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi,

@@ -6,6 +6,7 @@ export async function getSession() {
   console.log('get session');
 
   const session = cookies().get('session')?.value;
+  // console.log();
 
   if (!session) {
     return null;
@@ -16,7 +17,7 @@ export async function getSession() {
 
 export async function decrypt(input: string): Promise<any> {
   const payload = verify(input, process.env.KEY_JWT!);
-  // console.log(payload);
+  console.log(payload);
   return payload;
 }
 

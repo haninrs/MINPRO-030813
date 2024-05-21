@@ -3,7 +3,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 const protectedPages = [
   '/dashboard/orginazer',
-  '/dashboard/orginazer/profile',
+  '/dashboard/orginazerD/profile',
   '/dashboard/orginazer/event/create',
   '/dashboard/orginazer/event/eventDetail',
   '/dashboard/orginazer/revenue',
@@ -36,7 +36,6 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl.pathname;
   if (protectedPages.includes(url)) {
     if (token == undefined) {
-      console.log(token);
 
       return NextResponse.redirect(
         new URL(`/login?redirect=${url}`, request.url),
@@ -55,7 +54,7 @@ export async function middleware(request: NextRequest) {
         },
       );
       const data = await res.json();
-      console.log(data.accountType);
+      // console.log(data.accountType); 
 
       if (protectUserPages.includes(url) && data.accountType == 'user') {
         return NextResponse.next();

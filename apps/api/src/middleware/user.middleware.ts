@@ -9,15 +9,17 @@ export class UserMiddleware {
 
   async veryfyToken(req: Request, res: Response, next: NextFunction) {
     try {
-      // console.log(req.headers.cookie?.replace('session=', ''));
       let token = req.headers.cookie?.replace('session=', '');
+      // let token1 = req.headers.authorization?.replace('Bearer ', '');
       // console.log(token);
+      if (token == undefined) throw 'Token Empty';
+      let tokenSplit = token?.split(';')[0];
+      console.log(tokenSplit);
 
-      if (!token) throw 'Token Empty';
-
-      const verifyUser = verify(token, process.env.KEY_JWT!);
+      let verifyUser = verify(tokenSplit, process.env.KEY_JWT!);
       req.user = verifyUser as User;
       // console.log(verifyUser);
+      // console.log(req.headers.cookie);
 
       next();
     } catch (err) {

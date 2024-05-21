@@ -17,7 +17,7 @@ export default function ChangeEmail() {
         }}
         validationSchema={ResetPwSchema}
         onSubmit={(values, action) => {
-          console.log(values);
+          // console.log(values);
           //  onReset(values)
           action.resetForm();
         }}

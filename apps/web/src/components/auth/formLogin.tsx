@@ -29,20 +29,7 @@ export const FormLogin = () => {
     action.resetForm();
   };
 
-  // const search = useSearchParams();
-  // const dispatch = useAppDispatch();
-  // const redirect = search.get('redirect') || '/';
 
-  // const onLogin = async (data: any) => {
-  //   try {
-  //     const res = await loginUserc(data);
-  //     dispatch(setUser(res.user));
-  //     createToken(res.token, redirect);
-  //   } catch (error) {
-  //     console.log(error);
-  //     alert(<AlertComponent message={'Error'}></AlertComponent>);
-  //   }
-  // };
 
   const [show, setShow] = useState(false);
 

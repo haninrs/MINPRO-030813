@@ -82,7 +82,7 @@ export default function FormRegister() {
         }}
         validationSchema={RegisterSchema}
         onSubmit={async (values, action) => {
-          console.log(values);
+          // console.log(values);
           onRegister(values);
           action.resetForm();
         }}
